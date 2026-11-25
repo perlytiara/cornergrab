@@ -1,0 +1,17 @@
+name: Windows build
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build CornerGrab
+        shell: powershell
+        run: .\scripts\build-windows.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CornerGrab-Windows
+          path: dist/CornerGrab.exe
+          if-no-files-found: error
